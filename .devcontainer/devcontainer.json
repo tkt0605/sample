@@ -1,0 +1,48 @@
+{
+    "name": "django-backend",
+    "dockerComposeFile": [
+        "../docker-compose.yml"
+    ],
+    "service": "backend",
+    "workspaceFolder": "/backend",
+    "settings": {
+        "terminal.integrated.defaultProfile.linux": "/bin/bash",
+        "python.pythonPath": "/usr/local/bin/python"
+    },
+    "extensions": [
+        "ms-python.python",
+        "ms-azuretools.vscode-docker",
+        "ms-azuretools.vscode-azurefunctions",
+        "ms-azuretools.vscode-azureappservice",
+        "ms-azuretools.vscode-azureresourcegroups",
+        "ms-azuretools.vscode-azurestorage",
+        "ms-azuretools.vscode-cosmosdb"
+    ],
+    "postCreateCommand": "pip install --no-cache-dir -r requirements.txt",
+    "remoteUser": "root",
+    "mounts": [
+        "source=${localWorkspaceFolder}/backend,target=/backend,type=bind",
+        "source=${localWorkspaceFolder}/backend/staticfiles,target=/backend/staticfiles,type=bind",
+        "source=${localWorkspaceFolder}/frontend,target=/backend/frontend,type=bind",
+        "source=${localWorkspaceFolder}/nginx/nginx.conf,target=/etc/nginx/nginx.conf,type=bind",
+        "source=${localWorkspaceFolder}/mysql/init.sql,target=/docker-entrypoint-initdb.d/init.sql,type=bind,readonly"
+    ],
+    "containerEnv": {
+        "DJANGO_SETTINGS_MODULE": "config.settings",
+        "DJANGO_ALLOWED_HOST": "*",
+        "DATABASE_URL": "mysql://takato:0605@db:3306/todo",
+        "DATABASE_HOST": "db",
+        "DATABASE_NAME": "todo",
+        "DATABASE_USER": "takato",
+        "DATABASE_PASSWORD": "0605",
+        "AZURE_SUBSCRIPTION_ID": "d604a4e0-02d7-4f61-b32b-0eea4f01ae52",
+        "AZURE_RESOURCE_GROUP": "my-azure-resource-group",
+        "AZURE_REGION": "eastus"
+    },
+    "ports": [
+        "8000:8000",  // Django
+        "8080:8080",  // Vue.js
+        "3306:3306",  // MySQL
+        "80:80"       // Nginx
+    ]
+}
