@@ -5,8 +5,10 @@ RUN apt-get update && apt-get install -y curl && \
     rm -rf /var/lib/apt/lists/*
 WORKDIR /todo
 COPY ./todo/package*.json ./
-RUN npm install vue@3 js-cookie vue-router
+RUN npm install vuex@next
+RUN npm install js-cookie 
+RUN npm install vue-router
 RUN npm install 
 COPY ./todo/ .
 EXPOSE 8080
-CMD [ "vue", "run", "serve" ]
+CMD [ "npm", "run", "serve" ]

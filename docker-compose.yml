@@ -29,9 +29,9 @@ services:
   frontend:
     build: 
       context: ./frontend
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     container_name: frontend
-    command: vue run serve
+    command: npm run serve
     volumes:
       - ./frontend/todo:/backend/todo
       # - ./frontend:/todo

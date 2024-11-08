@@ -12,10 +12,16 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
-import environ
+# import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+import environ
 
+# instanceを作成
+env = environ.Env(
+    # 初期値を設定
+    DEBUG=(bool, False)
+)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -39,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    
 ]
 
 MIDDLEWARE = [
@@ -84,11 +90,11 @@ DATABASES = {
         # 'PASSWORD': '0605',
         # 'HOST': 'db',
         # 'PORT': '3306',
-        'NAME': os.environ['NAME'],
-        'USER': os.environ['USER'],
-        'PASSWORD': os.environ['PASSWORD'],
-        'HOST': os.environ['HOST'],
-        'PORT': os.environ['PORT'],
+        'NAME': env('NAME'),
+        'USER': env('USER'),
+        'PASSWORD': env('PASSWORD'),
+        'HOST': env('HOST'),
+        'PORT': env('PORT'),
 
     }
 }
@@ -116,9 +122,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ja'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tokyo'
 
 USE_I18N = True
 
